@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencatatan Penjualan</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+</head>
+<body>
+    <h1>Pencatatan Penjualan</h1>
+    <form id="sales-form">
+        <label for="nama_pelanggan">Nama Pelanggan:</label>
+        <input type="text" id="nama_pelanggan" required><br>
+
+        <label for="nama_produk">Nama Produk:</label>
+        <input type="text" id="nama_produk" required><br>
+
+        <label for="harga_produk">Harga Produk:</label>
+        <input type="number" id="harga_produk" required><br>
+
+        <label for="harga_jual">Harga Jual:</label>
+        <input type="number" id="harga_jual" required><br>
+
+        <button type="submit">Simpan</button>
+    </form>
+
+    <script>
+        const supabaseUrl = 'https://ggfnqqsznfxlbujjpidj.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdnZm5xcXN6bmZ4bGJ1ampwaWRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg0NDEyNDksImV4cCI6MjA0NDAxNzI0OX0.-hhUwLwXz4oygXprNZISGD430lbnEviFDVM6Il_uIKU';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+        document.getElementById('sales-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nama_pelanggan = document.getElementById('nama_pelanggan').value;
+            const nama_produk = document.getElementById('nama_produk').value;
+            const harga_produk = parseFloat(document.getElementById('harga_produk').value);
+            const harga_jual = parseFloat(document.getElementById('harga_jual').value);
+
+            const { data, error } = await supabase
+                .from('penjualan')
+                .insert([
+                    { nama_pelanggan, nama_produk, harga_produk, harga_jual }
+                ]);
+
+            if (error) {
+                console.error('Error inserting data:', error);
+            } else {
+                alert('Data berhasil disimpan!');
+                document.getElementById('sales-form').reset(); // Reset form setelah submit
+            }
+        });
+    </script>
+</body>
+</html>
