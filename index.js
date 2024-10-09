@@ -1,8 +1,8 @@
 const { createClient } = require('@supabase/supabase-js')
 
-// Koneksi ke Supabase (ganti dengan detail proyek Anda)
-const supabaseUrl = 'https://ggfnqqsznfxlbujjpidj.supabase.co'
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdnZm5xcXN6bmZ4bGJ1ampwaWRqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjg0NDEyNDksImV4cCI6MjA0NDAxNzI0OX0.-hhUwLwXz4oygXprNZISGD430lbnEviFDVM6Il_uIKU'
+// Koneksi ke Supabase menggunakan environment variables
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_KEY
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 // Fungsi untuk menambahkan data ke tabel
